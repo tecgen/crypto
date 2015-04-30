@@ -22,18 +22,31 @@ fi
 
 # check first how many files need to be processed
 # in order to be able to calculate an progress
+
+#countOfFilesAndDirs=`find $folder -type f | wc -l`
+#countOfDirectories=`find $folder -type d | wc -l`
+#countOfFiles=$($countOfFilesAndDirs - $countOfDirectories)
+
+#echo $countOfFiles
+
 for f in $folder/*
 do
-  # file or directory?
+  # directory or real file?
   if [[ -d $f ]];
     then
-      # echo $f is a directory
       # call this script recursivly with the directory and password
       ./$0 $f $password
     else
-      # echo $f is a file
-      # encrypt this file by using the password
-      ./encrypt.sh $f $password
-      gzip $f.$encrypted
+      # check if not already encrypted
+      ext="${f##*.}"
+      if [ $ext != "$encrypted.gz" ]
+        then
+        # encrypt this file by using the password
+        ./encrypt.sh $f $password
+        gzip $f.$encrypted
+        else
+          echo $f already encrypted
+      fi
+
   fi
 done
