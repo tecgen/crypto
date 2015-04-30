@@ -34,6 +34,6 @@ do
       # echo $f is a file
       # encrypt this file by using the password
       ./encrypt.sh $f $password
-      gzip $f
+      gzip $f.$encrypted
   fi
 done
