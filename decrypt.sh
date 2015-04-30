@@ -10,7 +10,8 @@ source global.cfg
 checkIfParametersAreGiven $me $argumentCount
 
 # get file name and extension
-filenameWithExtension=$(basename "$1")
+#filenameWithExtension=$(basename "$1")
+filenameWithExtension=$1
 # persist extension only
 extension="${filenameWithExtension##*.}"
 filename="${filenameWithExtension%.*}"
